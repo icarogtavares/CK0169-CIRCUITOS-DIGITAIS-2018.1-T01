@@ -94,11 +94,12 @@ function algarismo_hexadecimal_para_decimal(algarismo) {
     }
 }
 
-console.log(`************************
-            ** Binário: 1101 1100 **
-            ****  Decimal: 220  ****
-            ***  Hexadecimal: DC ***
-            ************************`)
+console.log(
+`************************
+** Binário: 1101 1100 **
+****  Decimal: 220  ****
+***  Hexadecimal: DC ***
+************************`)
 console.log("Decimal para Binário: " + decimal_para_binario(220))
 console.log("Binário para Decimal: " + binario_para_decimal(11011100))
 console.log("Binário para hexadecimal: " + binario_para_hexadecimal(11011100))
