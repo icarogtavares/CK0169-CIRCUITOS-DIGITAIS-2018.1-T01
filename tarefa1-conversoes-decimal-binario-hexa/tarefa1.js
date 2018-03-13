@@ -1,61 +1,61 @@
 
-function decimal_para_binario(numero_decimal) {
-    let quociente = numero_decimal
-    let lista_resto = []
+function decimalParaBinario(numeroDecimal) {
+    let quociente = numeroDecimal
+    let listaResto = []
     do {
-        lista_resto.push(quociente % 2)
+        listaResto.push(quociente % 2)
         quociente = Math.floor(quociente / 2)
     } while(quociente != 0)
-    let resultado = lista_resto.reverse()
+    let resultado = listaResto.reverse()
     return resultado.join("")
 }
         
-function binario_para_decimal(numero_binario) {
-    let numero_binario_str = numero_binario.toString()
+function binarioParaDecimal(numeroBinario) {
+    let numeroBinarioStr = numeroBinario.toString()
     let resultado = 0
-    for (let i = 0; i < numero_binario_str.length; i++) {
-        resultado += Number(numero_binario_str[i]) * Math.pow(2, numero_binario_str.length - i -1)
+    for (let i = 0; i < numeroBinarioStr.length; i++) {
+        resultado += Number(numeroBinarioStr[i]) * Math.pow(2, numeroBinarioStr.length - i -1)
     }
     return resultado
 }
 
-function binario_para_hexadecimal(numero_binario) {
-    let decimal = binario_para_decimal(numero_binario)
-    let hexadecimal = decimal_para_hexadecimal(decimal)
+function binarioParaHexadecimal(numeroBinario) {
+    let decimal = binarioParaDecimal(numeroBinario)
+    let hexadecimal = decimalParaHexadecimal(decimal)
     return hexadecimal
 }
 
-function hexadecimal_para_binario(numero_hexadecimal) {
-    let decimal = hexadecimal_para_decimal(numero_hexadecimal)
-    let binario = decimal_para_binario(decimal)
+function hexadecimalParaBinario(numero_hexadecimal) {
+    let decimal = hexadecimalParaBinario(numero_hexadecimal)
+    let binario = decimalParaBinario(decimal)
     return binario
 }
 
-function hexadecimal_para_decimal(numero_hexadecimal) {
-    let numero_hexadecimal_str = numero_hexadecimal.toString()
+function hexadecimalParaBinario(numero_hexadecimal) {
+    let numeroHexadecimalStr = numero_hexadecimal.toString()
     let resultado = 0
-    for(let i = 0; i < numero_hexadecimal_str.length; i++) {
-        let representacao_em_decimal = algarismo_hexadecimal_para_decimal(numero_hexadecimal_str[i])
-        resultado += Number(representacao_em_decimal) * Math.pow(16, numero_hexadecimal_str.length - i - 1)
+    for(let i = 0; i < numeroHexadecimalStr.length; i++) {
+        let representacaoEmDecimal = algarismoHexadecimalParaDecimal(numeroHexadecimalStr[i])
+        resultado += Number(representacaoEmDecimal) * Math.pow(16, numeroHexadecimalStr.length - i - 1)
     }
     return resultado
 }
 
-function decimal_para_hexadecimal(numero_decimal) {
-    let quociente = numero_decimal
-    let lista_resto = []
+function decimalParaHexadecimal(numeroDecimal) {
+    let quociente = numeroDecimal
+    let listaResto = []
     let resto = 0
     do {
         resto = quociente % 16
-        let representacao_em_hexadecimal = algarismo_decimal_para_hexadecimal(resto)
-        lista_resto.push(representacao_em_hexadecimal)
+        let representacaoEmHexadecimal = algarismoDecimalParaHexadecimal(resto)
+        listaResto.push(representacaoEmHexadecimal)
         quociente = Math.floor(quociente / 16)
     } while(quociente != 0)
-    resultado = lista_resto.reverse()
+    resultado = listaResto.reverse()
     return resultado.join("")
 }
 
-function algarismo_decimal_para_hexadecimal(algarismo) {
+function algarismoDecimalParaHexadecimal(algarismo) {
     switch(algarismo) {
         case 10:
             return "A"
@@ -74,7 +74,7 @@ function algarismo_decimal_para_hexadecimal(algarismo) {
     }
 }
 
-function algarismo_hexadecimal_para_decimal(algarismo) {
+function algarismoHexadecimalParaDecimal(algarismo) {
     algarismo = algarismo.toString().toUpperCase();
     switch(algarismo) {
         case "A":
@@ -100,17 +100,21 @@ console.log(
 ****  Decimal: 220  ****
 ***  Hexadecimal: DC ***
 ************************`)
-console.log("Decimal para Binário: " + decimal_para_binario(220))
-console.log("Binário para Decimal: " + binario_para_decimal(11011100))
-console.log("Binário para hexadecimal: " + binario_para_hexadecimal(11011100))
-console.log("Hexadecimal para Binário: " + hexadecimal_para_binario("DC"))
-console.log("Hexadecimal para Decimal: " + hexadecimal_para_decimal("DC"))
-console.log("Decimal para Hexadecimal: " + decimal_para_hexadecimal(220))
+const binario = 11011100
+const decimal = 220
+const hexadecimal = "DC"
+
+console.log("Decimal para Binário: " + decimalParaBinario(decimal))
+console.log("Binário para Decimal: " + binarioParaDecimal(binario))
+console.log("Binário para hexadecimal: " + binarioParaHexadecimal(binario))
+console.log("Hexadecimal para Binário: " + hexadecimalParaBinario(hexadecimal)) // String
+console.log("Hexadecimal para Decimal: " + hexadecimalParaBinario(hexadecimal)) //String
+console.log("Decimal para Hexadecimal: " + decimalParaHexadecimal(decimal))
 
 //Com zeros
-console.log("Decimal para Binário: " + decimal_para_binario(0))
-console.log("Binário para Decimal: " + binario_para_decimal(0))
-console.log("Binário para hexadecimal: " + binario_para_hexadecimal(0))
-console.log("Hexadecimal para Binário: " + hexadecimal_para_binario("0"))
-console.log("Hexadecimal para Decimal: " + hexadecimal_para_decimal("0"))
-console.log("Decimal para Hexadecimal: " + decimal_para_hexadecimal(0))
+console.log("Decimal para Binário: " + decimalParaBinario(0))
+console.log("Binário para Decimal: " + binarioParaDecimal(0))
+console.log("Binário para hexadecimal: " + binarioParaHexadecimal(0))
+console.log("Hexadecimal para Binário: " + hexadecimalParaBinario("0"))
+console.log("Hexadecimal para Decimal: " + hexadecimalParaBinario("0"))
+console.log("Decimal para Hexadecimal: " + decimalParaHexadecimal(0))

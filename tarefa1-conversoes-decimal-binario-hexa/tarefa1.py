@@ -3,9 +3,11 @@ import math
 def decimal_para_binario(numero_decimal):
     quociente = numero_decimal
     lista_resto = []
-    while(quociente != 0):
+    while(True):
         lista_resto.append(quociente % 2)
         quociente = quociente // 2
+        if(quociente == 0):
+            break
     resultado = list(reversed(lista_resto))
     return "".join(str(e) for e in resultado)
         
@@ -38,11 +40,13 @@ def decimal_para_hexadecimal(numero_decimal):
     quociente = numero_decimal
     lista_resto = []
     resto = 0
-    while(quociente != 0):
+    while(True):
         resto = quociente % 16
         representacao_em_hexadecimal = algarismo_decimal_para_hexadecimal(resto)
         lista_resto.append(representacao_em_hexadecimal)
         quociente = quociente // 16
+        if(quociente == 0):
+            break
 
     resultado = list(reversed(lista_resto))
     return "".join(str(e) for e in resultado)
@@ -87,9 +91,21 @@ if(__name__ == "__main__"):
             "***  Hexadecimal: DC ***",
             "************************",
             sep="\n")
-    print("Decimal para Binário:", decimal_para_binario(220))
-    print("Binário para Decimal:", binario_para_decimal(11011100))
-    print("Binário para hexadecimal:", binario_para_hexadecimal(11011100))
-    print("Hexadecimal para Binário:", hexadecimal_para_binario("DC"))
-    print("Hexadecimal para Decimal:", hexadecimal_para_decimal("DC"))
-    print("Decimal para Hexadecimal:", decimal_para_hexadecimal(220))
+
+    binario = 11011100
+    decimal = 220
+    hexadecimal = "DC"
+    
+    print("Decimal para Binário:", decimal_para_binario(decimal))
+    print("Binário para Decimal:", binario_para_decimal(binario))
+    print("Binário para hexadecimal:", binario_para_hexadecimal(binario))
+    print("Hexadecimal para Binário:", hexadecimal_para_binario(hexadecimal)) # String
+    print("Hexadecimal para Decimal:", hexadecimal_para_decimal(hexadecimal)) # String
+    print("Decimal para Hexadecimal:", decimal_para_hexadecimal(decimal))
+
+    print("Decimal para Binário:", decimal_para_binario(0))
+    print("Binário para Decimal:", binario_para_decimal(0))
+    print("Binário para hexadecimal:", binario_para_hexadecimal(0))
+    print("Hexadecimal para Binário:", hexadecimal_para_binario("0"))
+    print("Hexadecimal para Decimal:", hexadecimal_para_decimal("0"))
+    print("Decimal para Hexadecimal:", decimal_para_hexadecimal(0))
