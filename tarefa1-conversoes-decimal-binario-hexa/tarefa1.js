@@ -2,10 +2,10 @@
 function decimal_para_binario(numero_decimal) {
     let quociente = numero_decimal
     let lista_resto = []
-    while(quociente != 0) {
+    do {
         lista_resto.push(quociente % 2)
         quociente = Math.floor(quociente / 2)
-    }
+    } while(quociente != 0)
     let resultado = lista_resto.reverse()
     return resultado.join("")
 }
@@ -45,12 +45,12 @@ function decimal_para_hexadecimal(numero_decimal) {
     let quociente = numero_decimal
     let lista_resto = []
     let resto = 0
-    while(quociente != 0) {
+    do {
         resto = quociente % 16
         let representacao_em_hexadecimal = algarismo_decimal_para_hexadecimal(resto)
         lista_resto.push(representacao_em_hexadecimal)
         quociente = Math.floor(quociente / 16)
-    }
+    } while(quociente != 0)
     resultado = lista_resto.reverse()
     return resultado.join("")
 }
@@ -106,3 +106,11 @@ console.log("Binário para hexadecimal: " + binario_para_hexadecimal(11011100))
 console.log("Hexadecimal para Binário: " + hexadecimal_para_binario("DC"))
 console.log("Hexadecimal para Decimal: " + hexadecimal_para_decimal("DC"))
 console.log("Decimal para Hexadecimal: " + decimal_para_hexadecimal(220))
+
+//Com zeros
+console.log("Decimal para Binário: " + decimal_para_binario(0))
+console.log("Binário para Decimal: " + binario_para_decimal(0))
+console.log("Binário para hexadecimal: " + binario_para_hexadecimal(0))
+console.log("Hexadecimal para Binário: " + hexadecimal_para_binario("0"))
+console.log("Hexadecimal para Decimal: " + hexadecimal_para_decimal("0"))
+console.log("Decimal para Hexadecimal: " + decimal_para_hexadecimal(0))
