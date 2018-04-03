@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/tarefa1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <title>Ícaro Tavares 396448</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <form>
+                <div class="col-md-6">
+                    <div class="col-md-12 form-group">
+                        <label for="conversaoList">Tipo do dado a ser convertido:</label>
+                        <select class="form-control" name="conversaoList" id="conversaoList">
+                            <option value="binario">Bináriol</option>
+                            <option value="decimal">Decimal</option>
+                            <option value="hexadecimal">Hexadecimal</option>
+                        </select>
+                    </div><!-- Fim ROW select -->
+                    <div class="col-md-12 form-group">
+                        <label for="conversaoList">Insira o dado a ser convertido:</label>
+                        <input class="form-control" name="dadoInput" id="dadoInput" type="text" placeholder="Ex: 0001110">
+                    </div>
+                    <div class="col-md-12">
+                        <button class="btn btn-primary pull-right" type="submit">Converter</button>
+                    </div>
+                </div> <!-- FIM DIV FORM INPUTS -->
+            </form><!-- Fim FORM -->
+            <div class="col-md-6">
+                    <div class="alert alert-primary" id="binarioResult" role="alert"></div>
+                    <div class="alert alert-success" id="octalResult" role="alert"></div>
+                    <div class="alert alert-danger" role="alert" id="decimalResult"></div>
+                    <div class="alert alert-warning" role="alert" id="hexadecimalResult"></div>
+                    <div class="alert alert-info" role="alert" id="bcdResult"></div>
+                    <div class="alert alert-dark" role="alert" id="grayResult"></div>
+            </div>
+        </div><!-- Fim Row -->
+    </div><!-- Fim Container -->
+
+</body>
+</html>

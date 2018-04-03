@@ -10,6 +10,20 @@ function decimalParaBinario(numeroDecimal) {
     return resultado.join("")
 }
         
+function decimalParaHexadecimal(numeroDecimal) {
+    let quociente = numeroDecimal
+    let listaResto = []
+    let resto = 0
+    do {
+        resto = quociente % 16
+        let representacaoEmHexadecimal = algarismoDecimalParaHexadecimal(resto)
+        listaResto.push(representacaoEmHexadecimal)
+        quociente = Math.floor(quociente / 16)
+    } while(quociente != 0)
+    resultado = listaResto.reverse()
+    return resultado.join("")
+}
+
 function binarioParaDecimal(numeroBinario) {
     let numeroBinarioStr = numeroBinario.toString()
     let resultado = 0
@@ -39,20 +53,6 @@ function hexadecimalParaBinario(numero_hexadecimal) {
         resultado += Number(representacaoEmDecimal) * Math.pow(16, numeroHexadecimalStr.length - i - 1)
     }
     return resultado
-}
-
-function decimalParaHexadecimal(numeroDecimal) {
-    let quociente = numeroDecimal
-    let listaResto = []
-    let resto = 0
-    do {
-        resto = quociente % 16
-        let representacaoEmHexadecimal = algarismoDecimalParaHexadecimal(resto)
-        listaResto.push(representacaoEmHexadecimal)
-        quociente = Math.floor(quociente / 16)
-    } while(quociente != 0)
-    resultado = listaResto.reverse()
-    return resultado.join("")
 }
 
 function algarismoDecimalParaHexadecimal(algarismo) {
