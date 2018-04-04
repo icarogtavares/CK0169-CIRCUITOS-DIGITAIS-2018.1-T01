@@ -28,6 +28,19 @@ function decimalParaHexadecimal(numeroDecimal) {
     return resultado.join("")
 }
 
+function decimalParaBCD(numeroDecimal) {
+    if(!isDec(numeroDecimal)) return null
+
+    let numeroDecimalStr = numeroDecimal.toString()
+    let resultado = ""
+    for(let i = 0; i < numeroDecimalStr.length; i++) {
+        if(!algarismoDecimalParaBCD(numeroDecimalStr[i])) return null
+        resultado += algarismoDecimalParaBCD(numeroDecimalStr[i])
+    }
+
+    return resultado
+}
+
 function binarioParaDecimal(numeroBinario) {
     if(!isBin(numeroBinario)) return null
 
@@ -42,16 +55,36 @@ function binarioParaDecimal(numeroBinario) {
 function binarioParaHexadecimal(numeroBinario) {
     if(!isBin(numeroBinario)) return null
 
+    let numeroBinarioStr = numeroBinario.toString()
+    let resultado = ""
+    let bin4Bits = ""
+    let j = 0
+    for(let i = numeroBinarioStr.length -1; i >= 0; i--) {
+        if(j==4) {
+            resultado = parseInt(bin4Bits, 2).toString(16).toUpperCase() + resultado //convertendo os 4 bits lidos em um HEXADECIMAL
+            j = 0
+            bin4Bits = ""
+        }
+        bin4Bits = numeroBinarioStr[i] + bin4Bits
+        j++
+    }
+    if(j != 0) {
+        resultado = parseInt(bin4Bits, 2).toString(16).toUpperCase() + resultado
+    }
+    return resultado
+}
+
+function binarioParaBCD(numeroBinario) {
     let decimal = binarioParaDecimal(numeroBinario)
-    let hexadecimal = decimalParaHexadecimal(decimal)
-    return hexadecimal
+    return decimalParaBCD(decimal);
 }
 
 function hexadecimalParaBinario(numeroHexadecimal) {
     if(!isHex(numeroHexadecimal)) return null
-
+    
     let decimal = hexadecimalParaDecimal(numeroHexadecimal)
     let binario = decimalParaBinario(decimal)
+
     return binario
 }
 
@@ -65,6 +98,111 @@ function hexadecimalParaDecimal(numeroHexadecimal) {
         resultado += Number(representacaoEmDecimal) * Math.pow(16, numeroHexadecimalStr.length - i - 1)
     }
     return resultado
+}
+
+function hexadecimalParaBCD(numeroHexadecimal) {
+    let decimal = hexadecimalParaDecimal(numeroHexadecimal);
+    return decimalParaBCD(decimal);
+}
+
+function bcdParaDecimal(bcd) {
+    let bcdStr = bcd.toString()
+    let resultado = ""
+    let bin4Bits = ""
+    let j = 0
+    for(let i = bcdStr.length -1; i >= 0; i--) {
+        if(j==4) {
+            if(!algarismoBCDParaDecimal(bin4Bits)) return null
+            resultado = algarismoBCDParaDecimal(bin4Bits) + resultado //convertendo os 4 bits BCD lidos em um DECIMAL
+            j = 0
+            bin4Bits = ""
+        }
+        bin4Bits = bcdStr[i] + bin4Bits
+        j++
+    }
+    if(j != 0) {
+        if(!algarismoBCDParaDecimal(bin4Bits)) return null
+        resultado = algarismoBCDParaDecimal(bin4Bits) + resultado
+    }
+    return resultado
+}
+
+function bcdParaBinario(bcd) {
+    let decimal = bcdParaDecimal(bcd)
+    return decimal ? decimalParaBinario(decimal) : null
+}
+
+function bcdParaHexadecimal(bcd) {
+    let decimal = bcdParaDecimal(bcd)
+    return decimal ? decimalParaHexadecimal(decimal) : null
+}
+
+function algarismoDecimalParaBCD(algarismo) {
+    switch(algarismo) {
+        case "0":
+            return "0000"
+        case "1":
+            return "0001"
+        case "2":
+            return "0010"
+        case "3":
+            return "0011"
+        case "4":
+            return "0100"
+        case "5":
+            return "0101"
+        case "6":
+            return "0110"
+        case "7":
+            return "0111"
+        case "8":
+            return "1000"
+        case "9":
+            return "1001"
+        default:
+            return null
+    }
+}
+
+function algarismoBCDParaDecimal(algarismo) {
+    switch(algarismo) {
+        case "0000":
+        case "000":
+        case "00":
+        case "0":
+            return "0"
+        case "0001":
+        case "001":
+        case "01":
+        case "1":
+            return "1"
+        case "0010":
+        case "010":
+        case "10":
+            return "2"
+        case "0011":
+        case "011":
+        case "11":
+            return "3"
+        case "0100":
+        case "100":
+            return "4"
+        case "0101":
+        case "101":
+            return "5"
+        case "0110":
+        case "110":
+            return "6"
+        case "0111":
+        case "111":
+            return "7"
+        case "1000":
+            return "8"
+        case "1001":
+            return "9"
+        default:
+            return null
+    }
 }
 
 function algarismoDecimalParaHexadecimal(algarismo) {
@@ -87,7 +225,7 @@ function algarismoDecimalParaHexadecimal(algarismo) {
 }
 
 function algarismoHexadecimalParaDecimal(algarismo) {
-    algarismo = algarismo.toString().toUpperCase();
+    algarismo = algarismo.toString().toUpperCase()
     switch(algarismo) {
         case "A":
             return 10
@@ -115,30 +253,5 @@ function isDec(dec) {
 }
 
 function isHex(hex) {
-    return /^[0-9A-Fa-f]+$/.test(hex.toString());
+    return /^[0-9A-Fa-f]+$/.test(hex.toString())
 }
-
-console.log(
-`************************
-** Binário: 1101 1100 **
-****  Decimal: 220  ****
-***  Hexadecimal: DC ***
-************************`)
-const binario = 11011100
-const decimal = 220
-const hexadecimal = "DC"
-
-console.log("Decimal para Binário: " + decimalParaBinario(decimal))
-console.log("Binário para Decimal: " + binarioParaDecimal(binario))
-console.log("Binário para hexadecimal: " + binarioParaHexadecimal(binario))
-console.log("Hexadecimal para Binário: " + hexadecimalParaBinario(hexadecimal)) // String
-console.log("Hexadecimal para Decimal: " + hexadecimalParaDecimal(hexadecimal)) //String
-console.log("Decimal para Hexadecimal: " + decimalParaHexadecimal(decimal))
-
-//Com zeros
-console.log("Decimal para Binário: " + decimalParaBinario(0))
-console.log("Binário para Decimal: " + binarioParaDecimal(0))
-console.log("Binário para hexadecimal: " + binarioParaHexadecimal(0))
-console.log("Hexadecimal para Binário: " + hexadecimalParaBinario("0"))
-console.log("Hexadecimal para Decimal: " + hexadecimalParaDecimal("0"))
-console.log("Decimal para Hexadecimal: " + decimalParaHexadecimal(0))

@@ -9,11 +9,12 @@
     <script src="js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/mycss.css">
     <title>Ícaro Tavares 396448</title>
 </head>
 <body>
     <div class="container">
-        <div class="panel panel-default">
+        <div class="panel panel-default" style="margin-top: 16px">
             <div class="panel-heading">Conversor de Sistemas Numéricos</div>
             <div class="panel-body">
                 <div class="row">
@@ -36,7 +37,7 @@
                             </div>
                         </div> <!-- FIM DIV FORM INPUTS -->
                     </form><!-- Fim FORM -->
-                    <div class="col-md-12" style="padding-top: 33px;">
+                    <div class="col-md-12" style="margin-top: 33px;">
                         <div class="col-md-6">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Binário</div>
@@ -96,28 +97,47 @@
             }
             switch ($('#conversaoSelect').val()) {
                 case 'binario':
-                    var bin = isBin($('#dadoInput').val()) ? $('#dadoInput').val() : "-"
+                    if(!isBin($('#dadoInput').val())) {
+                        bindResults($)
+                        break
+                    }
+                    var bin =  $('#dadoInput').val()
                     var dec = binarioParaDecimal(bin)
                     var hex = binarioParaHexadecimal(bin)
-                    bindResults($, bin, "-", dec, hex)
-                    break;
+                    var bcd = binarioParaBCD(bin)
+                    bindResults($, bin, "-", dec, hex, bcd)
+                    break
                 case 'octal':
                 
                     break;
                 case 'decimal':
-                    var dec = isDec($('#dadoInput').val()) ? $('#dadoInput').val() : "-"
+                    if(!isDec($('#dadoInput').val())) {
+                        bindResults($)
+                        break
+                    }
+                    var dec =$('#dadoInput').val()
                     var bin = decimalParaBinario(dec)
                     var hex = decimalParaHexadecimal(dec)
-                    bindResults($, bin, "-", dec, hex)
+                    var bcd = decimalParaBCD(dec)
+                    bindResults($, bin, "-", dec, hex, bcd)
                     break;
                 case 'hexadecimal':
-                    var hex = isHex($('#dadoInput').val()) ? $('#dadoInput').val() : "-"
+                    if(!isHex($('#dadoInput').val())) {
+                        bindResults($)
+                        break
+                    }
+                    var hex = $('#dadoInput').val()
                     var bin = hexadecimalParaBinario(hex)
                     var dec = hexadecimalParaDecimal(hex)
-                    bindResults($, bin, "-", dec, hex)
+                    var bcd = hexadecimalParaBCD(hex)
+                    bindResults($, bin, "-", dec, hex, bcd)
                     break;
                 case 'bcd':
-                    
+                    var bcd = $('#dadoInput').val()
+                    var bin = bcdParaBinario(bcd);
+                    var dec = bcdParaDecimal(bcd);
+                    var hex = bcdParaHexadecimal(bcd);
+                    bindResults($, bin, "-", dec, hex, bcd)
                     break;
                 case 'gray':
                     
