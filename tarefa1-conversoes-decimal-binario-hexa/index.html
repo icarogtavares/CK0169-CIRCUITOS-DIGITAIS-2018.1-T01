@@ -24,7 +24,7 @@
                                 <label for="conversaoSelect">Tipo do dado a ser convertido:</label>
                                 <select class="form-control" name="conversaoSelect" id="conversaoSelect">
                                     <option value="binario">Binário</option>
-                                    <option value="octal">Octal</option>
+                                    <!--<option value="octal">Octal</option>-->
                                     <option value="decimal">Decimal</option>
                                     <option value="hexadecimal">Hexadecimal</option>
                                     <option value="bcd">BCD</option>
@@ -43,20 +43,20 @@
                                     <div class="panel-heading">Binário</div>
                                     <div class="panel-body"><p id="binResult">-</p></div>
                                 </div>
-                                <div class="panel panel-primary">
+                                <!--<div class="panel panel-primary">
                                     <div class="panel-heading">Octal</div>
                                     <div class="panel-body"><p id="octResult">-</p></div>
-                                </div>
+                                </div>-->
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Decimal</div>
                                     <div class="panel-body"><p id="decResult">-</p></div>
                                 </div>
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">Hexadecimal</div>
+                                    <div class="panel-body"><p id="hexResult">-</p></div>
+                                </div>
                         </div><!-- 1o col results -->
                         <div class="col-md-6">
-                            <div class="panel panel-primary">
-                                <div class="panel-heading">Hexadecimal</div>
-                                <div class="panel-body"><p id="hexResult">-</p></div>
-                            </div>
                             <div class="panel panel-primary">
                                 <div class="panel-heading">BCD</div>
                                 <div class="panel-body"><p id="bcdResult">-</p></div>
@@ -105,11 +105,11 @@
                     var dec = binarioParaDecimal(bin)
                     var hex = binarioParaHexadecimal(bin)
                     var bcd = binarioParaBCD(bin)
-                    bindResults($, bin, "-", dec, hex, bcd)
+                    var gray = binarioParaGray(bin)
+                    bindResults($, bin, "-", dec, hex, bcd, gray)
                     break
-                case 'octal':
-                
-                    break;
+                //case 'octal':
+                    //  break;
                 case 'decimal':
                     if(!isDec($('#dadoInput').val())) {
                         bindResults($)
@@ -119,7 +119,8 @@
                     var bin = decimalParaBinario(dec)
                     var hex = decimalParaHexadecimal(dec)
                     var bcd = decimalParaBCD(dec)
-                    bindResults($, bin, "-", dec, hex, bcd)
+                    var gray = decimalParaGray(dec)
+                    bindResults($, bin, "-", dec, hex, bcd, gray)
                     break;
                 case 'hexadecimal':
                     if(!isHex($('#dadoInput').val())) {
@@ -130,19 +131,21 @@
                     var bin = hexadecimalParaBinario(hex)
                     var dec = hexadecimalParaDecimal(hex)
                     var bcd = hexadecimalParaBCD(hex)
-                    bindResults($, bin, "-", dec, hex, bcd)
+                    var gray = hexadecimalParaGray(hex)
+                    bindResults($, bin, "-", dec, hex, bcd, gray)
                     break;
                 case 'bcd':
                     var bcd = $('#dadoInput').val()
-                    var bin = bcdParaBinario(bcd);
-                    var dec = bcdParaDecimal(bcd);
-                    var hex = bcdParaHexadecimal(bcd);
-                    bindResults($, bin, "-", dec, hex, bcd)
+                    var bin = bcdParaBinario(bcd)
+                    var dec = bcdParaDecimal(bcd)
+                    var hex = bcdParaHexadecimal(bcd)
+                    var gray = bcdParaGray(bcd)
+                    if(!bin) bcd = null
+                    bindResults($, bin, "-", dec, hex, bcd, gray)
                     break;
                 case 'gray':
                     
                     break;
-            
                 default:
                     break;
             }

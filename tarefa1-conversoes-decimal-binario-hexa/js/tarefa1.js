@@ -41,6 +41,13 @@ function decimalParaBCD(numeroDecimal) {
     return resultado
 }
 
+function decimalParaGray(numeroDecimal) {
+    if(!isDec(numeroDecimal)) return null
+
+    let binario = decimalParaBinario(numeroDecimal)
+    return binarioParaGray(binario)
+}
+
 function binarioParaDecimal(numeroBinario) {
     if(!isBin(numeroBinario)) return null
 
@@ -75,8 +82,28 @@ function binarioParaHexadecimal(numeroBinario) {
 }
 
 function binarioParaBCD(numeroBinario) {
+    if(!isBin(numeroBinario)) return null
     let decimal = binarioParaDecimal(numeroBinario)
     return decimalParaBCD(decimal);
+}
+
+function binarioParaGray(numeroBinario) {
+    if(!isBin(numeroBinario)) return null
+
+    let numeroBinarioStr = numeroBinario.toString()
+    let resultado = ""
+    let mudou = false
+    for(let i = 0; i < numeroBinarioStr.length; i++) {
+        let isDigitoEq1 = numeroBinarioStr[i] == "1"
+        if(mudou) {
+            resultado += isDigitoEq1 ? "0" : "1"
+            mudou = isDigitoEq1
+            continue
+        }
+        mudou = isDigitoEq1
+        resultado += numeroBinario[i]
+    }
+    return resultado
 }
 
 function hexadecimalParaBinario(numeroHexadecimal) {
@@ -101,8 +128,16 @@ function hexadecimalParaDecimal(numeroHexadecimal) {
 }
 
 function hexadecimalParaBCD(numeroHexadecimal) {
+    if(!isHex(numeroHexadecimal)) return null
     let decimal = hexadecimalParaDecimal(numeroHexadecimal);
     return decimalParaBCD(decimal);
+}
+
+function hexadecimalParaGray(numeroHexadecimal) {
+    if(!isHex(numeroHexadecimal)) return null
+
+    let binario = hexadecimalParaBinario(numeroHexadecimal)
+    return binarioParaGray(binario)
 }
 
 function bcdParaDecimal(bcd) {
@@ -135,6 +170,11 @@ function bcdParaBinario(bcd) {
 function bcdParaHexadecimal(bcd) {
     let decimal = bcdParaDecimal(bcd)
     return decimal ? decimalParaHexadecimal(decimal) : null
+}
+
+function bcdParaGray(bcd) {
+    let binario = bcdParaBinario(bcd)
+    return binario? binarioParaGray(binario) : null
 }
 
 function algarismoDecimalParaBCD(algarismo) {
