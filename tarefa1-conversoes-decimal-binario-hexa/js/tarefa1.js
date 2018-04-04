@@ -1,6 +1,8 @@
 
 function decimalParaBinario(numeroDecimal) {
-    let quociente = numeroDecimal
+    if(!isDec(numeroDecimal)) return null
+
+    let quociente = Number(numeroDecimal)
     let listaResto = []
     do {
         listaResto.push(quociente % 2)
@@ -11,7 +13,9 @@ function decimalParaBinario(numeroDecimal) {
 }
         
 function decimalParaHexadecimal(numeroDecimal) {
-    let quociente = numeroDecimal
+    if(!isDec(numeroDecimal)) return null
+
+    let quociente = Number(numeroDecimal)
     let listaResto = []
     let resto = 0
     do {
@@ -25,6 +29,8 @@ function decimalParaHexadecimal(numeroDecimal) {
 }
 
 function binarioParaDecimal(numeroBinario) {
+    if(!isBin(numeroBinario)) return null
+
     let numeroBinarioStr = numeroBinario.toString()
     let resultado = 0
     for (let i = 0; i < numeroBinarioStr.length; i++) {
@@ -34,19 +40,25 @@ function binarioParaDecimal(numeroBinario) {
 }
 
 function binarioParaHexadecimal(numeroBinario) {
+    if(!isBin(numeroBinario)) return null
+
     let decimal = binarioParaDecimal(numeroBinario)
     let hexadecimal = decimalParaHexadecimal(decimal)
     return hexadecimal
 }
 
-function hexadecimalParaBinario(numero_hexadecimal) {
-    let decimal = hexadecimalParaBinario(numero_hexadecimal)
+function hexadecimalParaBinario(numeroHexadecimal) {
+    if(!isHex(numeroHexadecimal)) return null
+
+    let decimal = hexadecimalParaDecimal(numeroHexadecimal)
     let binario = decimalParaBinario(decimal)
     return binario
 }
 
-function hexadecimalParaBinario(numero_hexadecimal) {
-    let numeroHexadecimalStr = numero_hexadecimal.toString()
+function hexadecimalParaDecimal(numeroHexadecimal) {
+    if(!isHex(numeroHexadecimal)) return null
+
+    let numeroHexadecimalStr = numeroHexadecimal.toString()
     let resultado = 0
     for(let i = 0; i < numeroHexadecimalStr.length; i++) {
         let representacaoEmDecimal = algarismoHexadecimalParaDecimal(numeroHexadecimalStr[i])
@@ -94,6 +106,18 @@ function algarismoHexadecimalParaDecimal(algarismo) {
     }
 }
 
+function isBin(bin) {
+    return /^[10]+$/.test(bin.toString())
+}
+
+function isDec(dec) {
+    return /^\d+$/.test(dec.toString())
+}
+
+function isHex(hex) {
+    return /^[0-9A-Fa-f]+$/.test(hex.toString());
+}
+
 console.log(
 `************************
 ** Binário: 1101 1100 **
@@ -108,7 +132,7 @@ console.log("Decimal para Binário: " + decimalParaBinario(decimal))
 console.log("Binário para Decimal: " + binarioParaDecimal(binario))
 console.log("Binário para hexadecimal: " + binarioParaHexadecimal(binario))
 console.log("Hexadecimal para Binário: " + hexadecimalParaBinario(hexadecimal)) // String
-console.log("Hexadecimal para Decimal: " + hexadecimalParaBinario(hexadecimal)) //String
+console.log("Hexadecimal para Decimal: " + hexadecimalParaDecimal(hexadecimal)) //String
 console.log("Decimal para Hexadecimal: " + decimalParaHexadecimal(decimal))
 
 //Com zeros
@@ -116,5 +140,5 @@ console.log("Decimal para Binário: " + decimalParaBinario(0))
 console.log("Binário para Decimal: " + binarioParaDecimal(0))
 console.log("Binário para hexadecimal: " + binarioParaHexadecimal(0))
 console.log("Hexadecimal para Binário: " + hexadecimalParaBinario("0"))
-console.log("Hexadecimal para Decimal: " + hexadecimalParaBinario("0"))
+console.log("Hexadecimal para Decimal: " + hexadecimalParaDecimal("0"))
 console.log("Decimal para Hexadecimal: " + decimalParaHexadecimal(0))
